@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+ <style>
+    
+    td{
+        border: 2px solid red;
+        width: 80px;
+        height: 80px;
+        color: white;
+        font-size: 80px;
+    }
+
+
+</style>
+    
+
+<script>
+
+    var columnHeight = [0,0,0,0,0,0,0];
+    var colorNumber = 0;
+    var arrayBoard = [
+                [0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0]
+            ];
+
+
+    function mouseOverColor(columnNumber){
+        //kleur van de kolom aanpassen als je erover gaat met je muis
+        var mouseOverBackgroundColor;
+        if (colorNumber == 1){
+            mouseOverBackgroundColor = "#DEB887";
+        } else {
+            mouseOverBackgroundColor = "#FB607F";
+        }
+        
+        for(var i=5; i>-1+columnHeight[columnNumber];i--){
+            document.getElementById("position"+columnNumber+""+i).style.backgroundColor = mouseOverBackgroundColor;
+        }
+        
+    }
+
+    function mouseOutColor(columnNumber){
+        //kleur terug naar wit zetten als je er niet meer over gaat met je muis
+        for(var i=5; i>-1;i--){
+            document.getElementById("position"+columnNumber+""+i).style.backgroundColor = "#FFFFFF";
+        }
+        
+    }
+    
+    
+    function makeMove(columnNumber){
+        
+        var colorName;
+
+        if (columnHeight[columnNumber] < 6){           
+            //kleur toewijzen
+            if (colorNumber == 0){
+                colorName = "#420D09";
+                colorNumber++;
+            } else {
+                colorName = "#F9A602";
+                colorNumber--;
+            }
+        
+            //plaats steen op gewenste locatie
+            document.getElementById("position"+columnNumber+""+columnHeight[columnNumber]).style.color = colorName;
+            document.getElementById("position"+columnNumber+""+columnHeight[columnNumber]).style.backgroundColor = "white";
+            columnHeight[columnNumber]++;
+
+            //kleur van de kolom aanpassen als je een zet heb gedaan
+            var mouseOverBackgroundColor;
+            if (colorNumber == 0){
+                mouseOverBackgroundColor = "#FB607F";
+            } else {
+                mouseOverBackgroundColor = "#DEB887";
+            }
+        
+            for(var i=5; i>-1+columnHeight[columnNumber];i--){
+                document.getElementById("position"+columnNumber+""+i).style.backgroundColor = mouseOverBackgroundColor;
+            }
+
+            //2D array invullen
+            if (colorNumber == 0){
+                arrayBoard[columnHeight[columnNumber]-1][columnNumber]=1;
+            } else{
+                arrayBoard[columnHeight[columnNumber]-1][columnNumber]=2;
+            }
+
+            //controleren of er horizontaal 4 op een rij is
+            var lastColor = 0;
+            var consecutiveInRow = 1;
+            for (var i=0; i<arrayBoard.length;i++){
+                for (var j=0; j<arrayBoard[i].length;j++){
+                    if (arrayBoard[i][j]==lastColor && arrayBoard[i][j]>0){
+                        consecutiveInRow++;
+                    } else{
+                        consecutiveInRow = 1;
+                    }
+                    lastColor = arrayBoard[i][j];
+                    if (consecutiveInRow == 4){
+                        if (colorNumber==1){
+                            alert("Red Wins! Retry?")
+                            resetBoard();
+                        } else{
+                            alert("Yellow Wins! Retry?")
+                            resetBoard();
+                        }
+                    }
+                }
+            }
+
+            //controleren of er verticaal 4 op een rij is ((geeft nog een foutmelding in de console, maar werkt wel))
+            lastColor = 0;
+            var consecutiveInColumn = 0;
+            for (var i=0; i<arrayBoard[i].length;i++){
+                for (var j=0; j<arrayBoard.length;j++){
+                    if (arrayBoard[j][i]==lastColor && arrayBoard[j][i]>0){
+                        consecutiveInColumn++;
+                    } else{
+                        consecutiveInColumn = 1;
+                    }
+                    lastColor = arrayBoard[j][i];
+                    if (consecutiveInColumn == 4){
+                        if (colorNumber==1){
+                            alert("Red wins! Retry?");
+                            resetBoard();
+                        } else{
+                            alert("Yellow Wins! Retry?");
+                            resetBoard();
+                        }
+                    }
+                }
+            }
+
+
+
+
+        } else {
+            //alert dat er te veel stenen in de kolom staan
+            alert("You cannot place a stone here. Please select a different position :)")
+        }
+    }
+
+    function resetBoard(){
+        //het bord resetten nadat een speler zojuist heeft gewonnen
+        columnHeight = [0,0,0,0,0,0,0];
+        colorNumber = 0;
+        arrayBoard = [
+                    [0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0],
+                    [0,0,0,0,0,0,0]
+                ];
+        for (var i=0; i<7; i++){
+            for (var j=0; j<6; j++){
+                document.getElementById("position"+i+""+j).style.color = "white";
+            }
+        }
+    }
+
+
+
+
+
+
+</script>
+</head>
+<body>
+   
+
+
+</body>
+
+<table border=1>
+
+    
+
+    <tr><td id=position05 onmouseup=makeMove(0) onmouseover=mouseOverColor(0) onmouseout=mouseOutColor(0)><b>O</b></td>
+        <td id=position15 onmouseup=makeMove(1) onmouseover=mouseOverColor(1) onmouseout=mouseOutColor(1)><b>O</b></td>
+        <td id=position25 onmouseup=makeMove(2) onmouseover=mouseOverColor(2) onmouseout=mouseOutColor(2)><b>O</b></td>
+        <td id=position35 onmouseup=makeMove(3) onmouseover=mouseOverColor(3) onmouseout=mouseOutColor(3)><b>O</b></td>
+        <td id=position45 onmouseup=makeMove(4) onmouseover=mouseOverColor(4) onmouseout=mouseOutColor(4)><b>O</b></td>
+        <td id=position55 onmouseup=makeMove(5) onmouseover=mouseOverColor(5) onmouseout=mouseOutColor(5)><b>O</b></td>
+        <td id=position65 onmouseup=makeMove(6) onmouseover=mouseOverColor(6) onmouseout=mouseOutColor(6)><b>O</b></td></tr>
+
+    <tr><td id=position04 onmouseup=makeMove(0) onmouseover=mouseOverColor(0) onmouseout=mouseOutColor(0)><b>O</b></td>
+        <td id=position14 onmouseup=makeMove(1) onmouseover=mouseOverColor(1) onmouseout=mouseOutColor(1)><b>O</b></td>
+        <td id=position24 onmouseup=makeMove(2) onmouseover=mouseOverColor(2) onmouseout=mouseOutColor(2)><b>O</b></td>
+        <td id=position34 onmouseup=makeMove(3) onmouseover=mouseOverColor(3) onmouseout=mouseOutColor(3)><b>O</b></td>
+        <td id=position44 onmouseup=makeMove(4) onmouseover=mouseOverColor(4) onmouseout=mouseOutColor(4)><b>O</b></td>
+        <td id=position54 onmouseup=makeMove(5) onmouseover=mouseOverColor(5) onmouseout=mouseOutColor(5)><b>O</b></td>
+        <td id=position64 onmouseup=makeMove(6) onmouseover=mouseOverColor(6) onmouseout=mouseOutColor(6)><b>O</b></td></tr>
+
+    <tr><td id=position03 onmouseup=makeMove(0) onmouseover=mouseOverColor(0) onmouseout=mouseOutColor(0)><b>O</b></td>
+        <td id=position13 onmouseup=makeMove(1) onmouseover=mouseOverColor(1) onmouseout=mouseOutColor(1)><b>O</b></td>
+        <td id=position23 onmouseup=makeMove(2) onmouseover=mouseOverColor(2) onmouseout=mouseOutColor(2)><b>O</b></td>
+        <td id=position33 onmouseup=makeMove(3) onmouseover=mouseOverColor(3) onmouseout=mouseOutColor(3)><b>O</b></td>
+        <td id=position43 onmouseup=makeMove(4) onmouseover=mouseOverColor(4) onmouseout=mouseOutColor(4)><b>O</b></td>
+        <td id=position53 onmouseup=makeMove(5) onmouseover=mouseOverColor(5) onmouseout=mouseOutColor(5)><b>O</b></td>
+        <td id=position63 onmouseup=makeMove(6) onmouseover=mouseOverColor(6) onmouseout=mouseOutColor(6)><b>O</b></td></tr>    
+        
+    <tr><td id=position02 onmouseup=makeMove(0) onmouseover=mouseOverColor(0) onmouseout=mouseOutColor(0)><b>O</b></td>
+        <td id=position12 onmouseup=makeMove(1) onmouseover=mouseOverColor(1) onmouseout=mouseOutColor(1)><b>O</b></td>
+        <td id=position22 onmouseup=makeMove(2) onmouseover=mouseOverColor(2) onmouseout=mouseOutColor(2)><b>O</b></td>
+        <td id=position32 onmouseup=makeMove(3) onmouseover=mouseOverColor(3) onmouseout=mouseOutColor(3)><b>O</b></td>
+        <td id=position42 onmouseup=makeMove(4) onmouseover=mouseOverColor(4) onmouseout=mouseOutColor(4)><b>O</b></td>
+        <td id=position52 onmouseup=makeMove(5) onmouseover=mouseOverColor(5) onmouseout=mouseOutColor(5)><b>O</b></td>
+        <td id=position62 onmouseup=makeMove(6) onmouseover=mouseOverColor(6) onmouseout=mouseOutColor(6)><b>O</b></td></tr>
+
+    <tr><td id=position01 onmouseup=makeMove(0) onmouseover=mouseOverColor(0) onmouseout=mouseOutColor(0)><b>O</b></td>
+        <td id=position11 onmouseup=makeMove(1) onmouseover=mouseOverColor(1) onmouseout=mouseOutColor(1)><b>O</b></td>
+        <td id=position21 onmouseup=makeMove(2) onmouseover=mouseOverColor(2) onmouseout=mouseOutColor(2)><b>O</b></td>
+        <td id=position31 onmouseup=makeMove(3) onmouseover=mouseOverColor(3) onmouseout=mouseOutColor(3)><b>O</b></td>
+        <td id=position41 onmouseup=makeMove(4) onmouseover=mouseOverColor(4) onmouseout=mouseOutColor(4)><b>O</b></td>
+        <td id=position51 onmouseup=makeMove(5) onmouseover=mouseOverColor(5) onmouseout=mouseOutColor(5)><b>O</b></td>
+        <td id=position61 onmouseup=makeMove(6) onmouseover=mouseOverColor(6) onmouseout=mouseOutColor(6)><b>O</b></td></tr>
+
+    <tr><td id=position00 onmouseup=makeMove(0) onmouseover=mouseOverColor(0) onmouseout=mouseOutColor(0)><b>O</b></td>
+        <td id=position10 onmouseup=makeMove(1) onmouseover=mouseOverColor(1) onmouseout=mouseOutColor(1)><b>O</b></td>
+        <td id=position20 onmouseup=makeMove(2) onmouseover=mouseOverColor(2) onmouseout=mouseOutColor(2)><b>O</b></td>
+        <td id=position30 onmouseup=makeMove(3) onmouseover=mouseOverColor(3) onmouseout=mouseOutColor(3)><b>O</b></td>
+        <td id=position40 onmouseup=makeMove(4) onmouseover=mouseOverColor(4) onmouseout=mouseOutColor(4)><b>O</b></td>
+        <td id=position50 onmouseup=makeMove(5) onmouseover=mouseOverColor(5) onmouseout=mouseOutColor(5)><b>O</b></td>
+        <td id=position60 onmouseup=makeMove(6) onmouseover=mouseOverColor(6) onmouseout=mouseOutColor(6)><b>O</b></td></tr>
+    
+</html>
+
+
+
+
