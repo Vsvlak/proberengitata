@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+
+        var buttonTimesPressed1 = 0;
+
+
+        function changeImage1(){
+            buttonTimesPressed1++;
+            if (buttonTimesPressed1%4 == 1){
+                document.getElementById("myImage1").src = "cartoonLeaf.jpg";
+            } else if (buttonTimesPressed1%4 == 2){
+                document.getElementById("myImage1").src = "cartoonIce.png";
+            } else if (buttonTimesPressed1%4 == 3){
+                document.getElementById("myImage1").src = "cartoonFlower.jpg";
+                document.getElementById("myImage2").src = "cartoonLamb.jpg";
+            } else {
+                document.getElementById("myImage1").src = "cartoonSun.jpg";
+                document.getElementById("myImage2").src = "cartoonSheep.jpg";
+            }
+        }
+
+
+
+
+
+    </script>
+</head>
+<body>
+
+    <img id="myImage1" src="cartoonSun.jpg" style="width:200px" style="height:200px">
+    <img id="myImage2" src="cartoonSheep.jpg" style="width:200px">
+    <br /><br />
+    <input type=button value="Change Season" onclick="changeImage1()"></button>
+
+    
+    
+</body>
+</html>

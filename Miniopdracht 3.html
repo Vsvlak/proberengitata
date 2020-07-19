@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+
+        function clickedOn(){
+            var count = 0;
+            var input1 = document.getElementById("textField1").value;
+            var input2 = document.getElementById("textField2").value;
+            for (var i=0; i<input1.length; i++){
+                if (input1.substring(i,i+1).search(input2)>-1){
+                    count++;
+                }
+            }
+            if (count>0){
+                alert(count);
+            }
+        }
+
+
+
+    </script>
+</head>
+<body>
+
+    <input type=text id="textField1">
+    <input type=text id="textField2">
+    <input type=button value="Click Here" onclick="clickedOn()">
+
+
+    
+</body>
+</html>

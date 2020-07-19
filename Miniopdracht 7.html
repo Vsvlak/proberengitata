@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+
+        var buttonTimesPressed1 = 0;
+        var buttonTimesPressed2 = 0;
+
+        function changeImage1(){
+            buttonTimesPressed1++;
+            if (buttonTimesPressed1%4 == 1){
+                document.getElementById("myImage1").src = "cartoonLeaf.jpg";
+            } else if (buttonTimesPressed1%4 == 2){
+                document.getElementById("myImage1").src = "cartoonIce.png";
+            } else if (buttonTimesPressed1%4 == 3){
+                document.getElementById("myImage1").src = "cartoonFlower.jpg";
+            } else {
+                document.getElementById("myImage1").src = "cartoonSun.jpg";
+            }
+        }
+
+        function changeImage2(){
+            buttonTimesPressed2++;
+            if (buttonTimesPressed2%4 == 1){
+                document.getElementById("myImage2").src = "cartoonLeaf.jpg";
+            } else if (buttonTimesPressed2%4 == 2){
+                document.getElementById("myImage2").src = "cartoonIce.png";
+            } else if (buttonTimesPressed2%4 == 3){
+                document.getElementById("myImage2").src = "cartoonFlower.jpg";
+            } else {
+                document.getElementById("myImage2").src = "cartoonSun.jpg";
+            }
+        }
+
+        function checkIfSame(){
+            if (buttonTimesPressed1%4 == buttonTimesPressed2%4){
+                alert("The seasons are the same!!")
+            } else {
+                alert("The seasons are different!!")
+            }
+        }
+
+
+
+    </script>
+</head>
+<body>
+
+    <img id="myImage1" src="cartoonSun.jpg" style="width:200px" style="height:200px">
+    <img id="myImage2" src="cartoonSun.jpg" style="width:200px">
+    <br /><br />
+    <input type=button value="Change Season 1" onclick="changeImage1()"></button>
+    <br /> <br />
+    <input type=button value="Change Season 2" onclick="changeImage2()"></button>
+    <br /> <br />
+    <input type=button value="The same?" onclick="checkIfSame()">
+    
+    
+</body>
+</html>
