@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+
+        function eurToUsd(){
+            var euro = document.getElementById("eurAmount").value;
+            if(euro > 0){
+               alert(euro + " EUR = " + (euro*1.15).toFixed(2) + " USD");
+            } else {
+                alert("Please enter a valid value");
+            }
+        }
+
+        function usdToEur(){
+            var usd = document.getElementById("usdAmount").value;
+            if(usd > 0){
+               alert(usd + " USD = " + (usd*0.8695652173913043).toFixed(2) + " EUR");
+            } else {
+                alert("Please enter a valid value");
+            }
+        }
+
+
+
+    </script>
+</head>
+<body>
+
+    <input type=text id="eurAmount">
+    <input type=text id="usdAmount">
+    <br />
+    <input type=button value="EUR -> USD" onclick="eurToUsd()">
+    <input type=button value="USD -> EUR" onclick="usdToEur()">
+    
+</body>
+</html>
